@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import './index.css'
 
 export default function Index() {
@@ -6,17 +6,17 @@ export default function Index() {
 
   let [url,setUrl]= useState('"http://localhost:3001/trips"')
 
+  let fetchTrips = useCallback(()=>{
+    fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      setTrips(data);
+    });
+  },[url])
   //useEffect
   useEffect(() => {
-    //၂button ကိုနှိပ်လိုက်မယ်
-    //url က update ဖစ်သွားတယ်/useeffect ကတခါrunပါတယ်
-    //http:နဲ့ string လေးက၀င်လာတယ်/myanmar data ကိုပြတယ်/setTripsကိုသုံးပီး tripsတွေကိ update လုပ်တယ်/componentက rerender ကျတယ်/return အောက်ကdiv က ပြန်အလုပ်လုပ်တယ်
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setTrips(data);
-      });
-  }, [url]);//[]ထဲမှာ
+    fetchTrips()
+  }, [fetchTrips]);
   console.log(trips);
 
   return (
