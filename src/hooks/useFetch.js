@@ -3,7 +3,7 @@ import { useEffect,useState } from "react";
 function useFetch(url){
 
    let [data,setData]= useState(null);
-   let [loading,setLoading]= useState(false)
+   let [loading,setLoading]= useState(false)//loading state 
    let [error,setError] = useState(null);
 //useEffect (fetch -> first render ->useEffect)
   //fetch -> dyanmic -> url
@@ -12,15 +12,15 @@ function useFetch(url){
     setLoading(true);
     fetch(url)
     .then((res) => {
-        // console.log(res);
+        // console.log(res);//error ကိုစစ်ပါ
         if(!res.ok){
-         throw Error ('something went wrong')
+         throw Error ('something went wrong');//လှမ်းပစ်လိုက်တဲ့ error ကို catch နဲ့ ပြန်ဖမ်းလို့ရ
         }
         return res.json();
     })
     .then((data) => {
       setData(data);
-      setError(null);
+      setError(null);//data မှန်သွားခဲ့ရင် error မတတ်တော့ပါဘူး so write
       setLoading(false);
     })
     .catch(e => {
