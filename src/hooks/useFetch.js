@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 
-function useFetch(url) {
+function useFetch(url,_options) {
   let [data, setData] = useState(null);
   let [loading, setLoading] = useState(false); //loading state
   let [error, setError] = useState(null);
+  let options = useRef(_options).current// usestate လဲသုံးလို့ရပါတယ်
+
   //useEffect (fetch -> first render ->useEffect)
   //fetch -> dyanmic -> url
   //output -> api's data
   useEffect(() => {
+   console.log(options);//object -> reference 
 
    let abortController = new AbortController();//clean up 
    let signal = abortController.signal;
@@ -37,7 +40,7 @@ function useFetch(url) {
          abortController.abort();//clean up
         // console.log('clean up');
       }
-  }, [url]);
+  }, [url,options]);// {type: 'Get'}
   //   console.log(trips);
   return { data, loading, error }; //{data:data} key
 }
