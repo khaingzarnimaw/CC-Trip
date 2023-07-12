@@ -1,23 +1,29 @@
-import {useState} from 'react'
-// import { useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
 import './App.css';
 import TripList from './components/TripList/index.js'
 
 
 function App() {
-  // useEffect(()=>{
-  //   console.log('render first time');
-  // },[])
+  let[data,setData]= useState('my data');
 
-  let [show,setShow]= useState(true);
+  let myfunction = ()=>{
+    setData('update data')
+  }
 
-
-  return (
-  <>
-    <button onClick={()=>setShow(false)}>hide trips</button>
-    {show && <TripList/>}
-  </>
-  );
+  useEffect (()=>{ //စrun တာပါ
+   myfunction()
+   console.log('running');
+  },[myfunction])// <- do not use 
+  
+return<>
+<h1>{data}</h1>
+<TripList/>
+</>  
 }
+  
 
 export default App;
+//data= 'my data'
+//data= 'update data' -> rerender 
+// တူညီတဲ့ state 
